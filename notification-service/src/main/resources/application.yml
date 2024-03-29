@@ -1,0 +1,41 @@
+server:
+  port: 8111
+spring:
+  application:
+    name: notification-service
+#
+# Configurations spécifiques à Kafka
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    template:
+      default-topic: notificationTopic
+    consumer:
+      group-id: notificationId
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.type.mapping: event:com.example.notificationservice.PostPlacedEvent
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/social_networks
+    username: postgres
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: banatward2017@gmail.com
+    password: iiupxbbvfkyshiwv
+
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
